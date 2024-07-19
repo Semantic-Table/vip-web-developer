@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'utils';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  scroll-behavior: smooth;
+
+  // deactivate scrollbar
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body {
+  width: 100dvw;
+  min-height: 100dvh;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  
+
+}
