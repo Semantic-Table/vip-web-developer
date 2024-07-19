@@ -9,10 +9,9 @@
   position: relative;
 }
 
+$gap: 20px;
 
-$gap : 40px;
-
-.images-container {  
+.images-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +23,7 @@ $gap : 40px;
   height: 100%;
   overflow: visible;
   z-index: -1;
-  gap: $gap;  
+  gap: $gap;
   transform: rotate(-15deg);
 
   &__images {
@@ -39,14 +38,11 @@ $gap : 40px;
       border-radius: 15px;
     }
   }
-
-
-
 }
 
 .scroll {
   color: white;
-  font-family: 'Lora';
+  font-family: "Lora";
   font-size: 20px;
   display: flex;
   justify-content: center;
@@ -66,6 +62,76 @@ $gap : 40px;
   }
 }
 
+.title-container {
+  width: 100%;
+  animation: fadeIn 2s ease-in-out;
+  pointer-events: all;
+  position: absolute;
+  top: 40%;
+  backdrop-filter: blur(10px);
+  z-index: 3;
+  &__title {
+    width: 100%;
+    text-align: center;
+    font-family: "Oswald";
+    color: white;
+    font-size: 8vw;
+    background: linear-gradient(
+      140deg,
+      black 0%,
+      black 15%,
+      color-mix(in srgb, black, gold 50%) 25%,
+      color-mix(in srgb, black, gold 10%) 35%,
+      color-mix(in srgb, black, gold 50%) 42%,
+      color-mix(in srgb, black, gold 50%) 44%,
+      color-mix(in srgb, black, white 70%) 47%,
+      gold 48%,
+      black 60%
+    );
+    background-clip: text;
+    color: transparent;
+
+    background-size: 200% 100%;
+    background-position: 40% 0%;
+    // transition: 1.8s background-position ease-out;
+    // animation: backgroundPositionMove 3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    line-height: 1em;
+    & span {
+      // width: 20%;
+      margin-right: 0.5em;
+      text-align: center;
+      transition: width 0.5s ease-in-out;
+    }
+    // &:hover {
+    //   background-position: 0% 0%;
+    // }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes backgroundPositionMove {
+  0% {
+    background-position: 100% 0%;
+  }
+
+  50% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: 100% 0%;
+  }
+}
 
 @keyframes Float {
   0% {

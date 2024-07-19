@@ -4,6 +4,8 @@ import { HeroBannerComponent } from './hero-banner/hero-banner.component';
 import { ScrollHandlerService } from '../services/scroll-handler.service';
 import { MenuComponent } from './menu/menu.component';
 import { CreationComponent } from './creation/creation.component';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
 
 @Component({
   selector: 'app-root',
@@ -25,5 +27,7 @@ export class AppComponent {
 
   constructor(
     @Inject(ScrollHandlerService) public scrollHandler: ScrollHandlerService
-  ) { }
+  ) {
+    gsap.registerPlugin(ScrollTrigger)
+  }
 }

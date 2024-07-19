@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, effect, ElementRef, HostListener, QueryList, signal, viewChild, viewChildren } from '@angular/core';
+import gsap from 'gsap';
 
 @Component({
   selector: 'app-hero-banner',
@@ -11,46 +12,41 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, effect, ElementRef, 
   styleUrl: './hero-banner.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeroBannerComponent {
-  imagesCenter = viewChild<ElementRef<HTMLDivElement>>('imagesCenter');
-  imagesFirstLayer = viewChildren<ElementRef<HTMLDivElement>>('imagesFirstLayer');
-
-  mouseXPosition = 0
+export class HeroBannerComponent implements AfterViewInit{
+  MAX_TRANSLATE_X = 150;
   @HostListener('window:mousemove', ['$event']) mouseMoveHandler(event: MouseEvent) {
     const screenWidth = window.innerWidth;
     const xCenter = screenWidth / 2;
     const x = (event.clientX - xCenter) / xCenter;
 
-    this.mouseXPosition = x;
+    gsap.to('.center', {
+      x: x * this.MAX_TRANSLATE_X,
+      duration: 1
+    })
+
+    gsap.to('.first', {
+      x: x * this.MAX_TRANSLATE_X / 2,
+      duration: 1
+    })
   }
 
-  currentTransform = 0;
-
-  MAX_TRANSLATE_X = 300;
-
-  constructor() {
-    this.animateImages();
-  }
-
-  lerp(a: number, b: number, t: number) {
-    return a * (1 - t) + b * t;
-  }
-
-  animateImages() {
-    requestAnimationFrame(this.animateImages.bind(this));
-
-    this.currentTransform = this.lerp(this.currentTransform, this.mouseXPosition, 0.01);
-
-    const imagesCenter = this.imagesCenter();
-    if (!imagesCenter) return;
-    const imagesFirstLayer = this.imagesFirstLayer();
-    if (imagesFirstLayer.length === 0) return;
-    if (imagesCenter && imagesFirstLayer.length > 0) {
-      imagesCenter.nativeElement.style.transform = `translateX(${this.MAX_TRANSLATE_X * this.currentTransform}px)`
-      for (const images of imagesFirstLayer) {
-        images.nativeElement.style.transform = `translateX(${this.MAX_TRANSLATE_X * (this.currentTransform / 2)}px)`
+  ngAfterViewInit(): void {
+    // gsap.to('.title-text', {
+    //   backgroundPosition: '50% 0%',
+    // })
+    gsap.to('.title', {
+      y: 0,
+      top: 0,
+      duration: 1,
+      position: 'fixed',
+      scrollTrigger: {
+        trigger: '.title',
+        start: 'top 0px',
+        end: 'top 20%',
+        scrub: true,
+        markers: true
       }
-    }
+    })
   }
 }
 
